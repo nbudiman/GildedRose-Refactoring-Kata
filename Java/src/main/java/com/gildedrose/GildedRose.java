@@ -13,29 +13,32 @@ class GildedRose {
 
     private void updateQuality(Item item, int rate) {
         item.quality += rate;
+        if (item.quality > 50) {
+            item.quality = 50;
+        }
+        if (item.quality < 0) {
+            item.quality = 0;
+        }
     }
 
     private void updateAgedBrie(Item item) {
         updateSellIn(item);
-        if (item.quality < 50) {
             if (item.sellIn <=0) {
                 updateQuality(item, 1);
             }
             updateQuality(item, 1);
-        }
     }
 
     private void updateBackstagePass(Item item) {
         updateSellIn(item);
-        if (item.quality < 50) {
+        updateQuality(item, 1);
+        if (item.sellIn <= 10) {
             updateQuality(item, 1);
-            if (item.sellIn <= 10) {
-                updateQuality(item, 1);
-            }
-            if (item.sellIn <= 5) {
-                updateQuality(item, 1);
-            }
         }
+        if (item.sellIn <= 5) {
+            updateQuality(item, 1);
+        }
+
         if (item.sellIn <= 0) {
             item.quality = 0;
         }
